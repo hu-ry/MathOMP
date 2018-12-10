@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 // converts the given char(program parameter) into an unsigned 64bit integer
-    unsigned long long one = atoll(argv[1]);
+    int one = atoll(argv[1]);
 
     printf("Number is %llu \r\n", one);
     if(one<=1) {
@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
 
     start = omp_get_wtime();
     // To calculate the time it takes till the number gets confirmed as prime number
-    bool primOne = isPrime(one); // invoking isPrime() with number
+    bool primOne = isPrimei(one); // invoking isPrime() with number
     // or not.
     end = omp_get_wtime();
     delta = end - start;
