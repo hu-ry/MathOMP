@@ -11,17 +11,17 @@ bool isPrimellu(unsigned long long* pn) {
     bool primIndicator = true;
     unsigned long long pnHalfed;
     if (*pn > 2 && *pn%2!=0 && *pn%3!=0 && *pn%5!=0) {
-        pnHalfed = *pn / 2;
+        pnHalfed = (unsigned long long)sqrtl(*pn);
     }   else {
         return false;
     }
 //checks if the number is high enough to make a difference in time for the calculation, because of the parallelization overhead.
-    if(pnHalfed > 36500000) {
+    if(pnHalfed > 36500000) { // manually adjustable for the used CPU to get the best performance
 
 #pragma omp parallel shared(primIndicator)
         {
 #pragma omp for schedule(dynamic, 5000)
-            for (unsigned long long i_counter = 4; i_counter <= pnHalfed; i_counter++) {
+            for (unsigned long long i_counter = 7; i_counter <= pnHalfed; i_counter = i_counter+2) {
                 if (*pn % i_counter == 0) {
                     primIndicator = false;
 #pragma omp cancel for
@@ -30,7 +30,7 @@ bool isPrimellu(unsigned long long* pn) {
             }
         }
     } else {
-        for (unsigned long long i_counter = 4; i_counter < pnHalfed; i_counter++) {
+        for (unsigned long long i_counter = 7; i_counter <= pnHalfed; i_counter = i_counter+2) {
             if (*pn % i_counter == 0) {
                 primIndicator = false;
                 break;
