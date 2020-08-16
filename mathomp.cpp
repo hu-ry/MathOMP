@@ -1,7 +1,10 @@
+//
+// Created by hury on 10/12/2018.
+//
+
 #include <stdbool.h>
 #include <omp.h>
 #include <cmath>
-#include <cstdio>
 #include "mathomp.h"
 
 const double PI=3.1415926535897932384650288;
@@ -125,6 +128,23 @@ int facult(int fac) {
     }
     return result;
 }
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
+
+inline float sqrt_aprox(float base) {
+    int i;
+    float x, y;
+    x = base * 0.5;
+    y = base;
+    i = * (int * ) &y;
+    i = 0x5f3759df - (i >> 1);
+    y = * ( float * ) &i;
+    y = y * (1.5 - (x * y * y));
+    y = y * (1.5 - (x * y * y));
+    return base * y;
+}
+#pragma GCC diagnostic pop
 
 double calcSin(double x) {
     double sign=1;

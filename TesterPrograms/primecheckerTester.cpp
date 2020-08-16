@@ -1,14 +1,22 @@
-#include <stdbool.h>
-#include <stdlib.h>
 #include <omp.h>
-#include <iostream>
-#include <fstream>
+#include <cstdbool>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 
 #include "../mathomp.h"
-using namespace std;
 //
 // Created by ryanh on 08.12.2018.
 //
+#ifdef __linux__
+#define LOG_FILE_PATH "log/primecheckerTester.log"
+
+#elif _WIN32
+#define LOG_FILE_PATH "log//primecheckerTester.log"
+
+#else
+#error "OS not supported!"
+#endif
 
 int main(int argc, char** argv) {
 // give a number which should get checked as program parameter.
@@ -25,17 +33,15 @@ int main(int argc, char** argv) {
         return 1;
     }
 // converts the given char(program parameter) into an unsigned 64bit integer
-    FILE *file_p;
-    file_p = fopen("log//primecheckerTester.log", "a+");
+    FILE *file_p = fopen(LOG_FILE_PATH, "a+");
 
 
     unsigned int long long value_llu;
     int value_i;
 
+    if(strcmp(argv[2], "llu") == 0) {
 
-    if((string)argv[2] == "llu") {
-
-        value_llu = atoll(argv[1]);
+        value_llu = strtoll(argv[1], nullptr, 10);
         printf("Number is %llu llu\r\n", value_llu);
         fprintf(file_p, "Number is %llu llu\r\n", value_llu);
 
@@ -44,7 +50,7 @@ int main(int argc, char** argv) {
             printf("Given number is 1 or smaller invalid input! \r\n");
             return 1;
         }
-    } else if((string)argv[2] == "i") {
+    } else if(strcmp(argv[2], "i") == 0) {
 
         value_i = atoi(argv[1]);
         printf("Number is %d i\r\n", value_i);
@@ -70,7 +76,7 @@ int main(int argc, char** argv) {
 
     start = omp_get_wtime();
     // To calculate the time it takes till the number gets confirmed as prime number
-    bool primOne = (string)argv[2] == "llu" ? isPrimellu(&value_llu) : isPrimei(&value_i); // invoking isPrimellu() or
+    bool primOne = strcmp(argv[2], "llu") ? isPrimellu(&value_llu) : isPrimei(&value_i); // invoking isPrimellu() or
     // isPrimei(), depending on the the type, with number or not.
     end = omp_get_wtime();
     delta = end - start;
@@ -78,7 +84,7 @@ int main(int argc, char** argv) {
     fprintf(file_p, "Took %.10f seconds to finish!\n", delta);
     printf("Took %.10f seconds to finish!\n", delta); // prints out the time it took
 
-    if((string)argv[2] == "llu") {
+    if(strcmp(argv[2], "llu") == 0) {
         fprintf(file_p, "The number %llu is %d prime!\n \n", value_llu, primOne);
         printf("The number %llu is %d prime!\n", value_llu, primOne);
     } else {

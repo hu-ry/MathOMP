@@ -1,10 +1,11 @@
-#include <stdlib.h>
-#include <omp.h>
-#include <iostream>
-#include "../mathomp.h"
 //
 // Created by ryanh on 04/02/2019.
 //
+
+#include <cstdlib>
+#include <omp.h>
+#include <cstdio>
+#include "../mathomp.h"
 
 int main(int argc, char** argv) {
 // give a number which should get checked as program parameter.
