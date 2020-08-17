@@ -2,18 +2,21 @@ CC=gcc
 CXX=g++
 CFLAGS=-O2 -fopenmp -std=c99
 CXXFLAGS=-O2 -fopenmp
-EXECS= TesterPrograms/primecheckerTester TesterPrograms/sinusCalcTester TesterPrograms/ArrayTester
+EXECS= bin/primecheckerTester bin/sinusCalcTester bin/ArrayTester bin/BenchmarkTester
 # This Makefile is for testing the executables of all the functions of this library!
 
 all: $(EXECS)
 
-TesterPrograms/primecheckerTester: TesterPrograms/primecheckerTester.cpp
+bin/primecheckerTester: TesterPrograms/primecheckerTester.cpp
 	$(CXX) -o $@ $< mathomp.cpp $(CXXFLAGS)
 
-TesterPrograms/sinusCalcTester: TesterPrograms/sinusCalcTester.cpp
+bin/sinusCalcTester: TesterPrograms/sinusCalcTester.cpp
 	$(CXX) -o $@ $< mathomp.cpp $(CXXFLAGS)
 
-TesterPrograms/ArrayTester: TesterPrograms/ArrayTester.cpp
+bin/ArrayTester: TesterPrograms/ArrayTester.cpp
+	$(CXX) -o $@ $< mathomp.cpp $(CXXFLAGS)
+
+bin/BenchmarkTester: TesterPrograms/benchmarkTester.cpp
 	$(CXX) -o $@ $< mathomp.cpp $(CXXFLAGS)
 
 clean:

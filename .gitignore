@@ -37,3 +37,4 @@
 .idea/
 cmake-*/
 TesterPrograms/log/
+bin/

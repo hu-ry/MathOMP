@@ -132,7 +132,7 @@ int facult(int fac) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
-inline float sqrt_aprox(float base) {
+float sqrt_aprox(float base) {
     int i;
     float x, y;
     x = base * 0.5;
@@ -146,14 +146,43 @@ inline float sqrt_aprox(float base) {
 }
 #pragma GCC diagnostic pop
 
+float inv_sqrt(float nb) {
+    long i;
+    float x2, y;
+
+    x2 = nb * 0.5;
+    y  = nb;
+    i  = * (int *) &y;
+    i  = 0x5f3759df - ( i >> 1 );
+    y  = * ( float * ) &i;
+    y = y * (1.5 - (x2 * y * y));
+
+    return y;
+}
+
+double sinus(double rad) {
+    double sin = rad;
+    double cur_rad = rad;
+    rad = rad*rad;
+
+
+    sin -= (cur_rad *= rad) / 6; // 3
+    sin += (cur_rad *= rad) / 120; // 5
+    sin -= (cur_rad *= rad) / 5040; // 7
+    sin += (cur_rad *= rad) / 362880; // 9
+    sin -= (cur_rad *= rad) / 39916800; // 11
+    sin += (cur_rad *= rad) / 6227020800; // 13
+    sin -= (cur_rad * rad) / 1307674368000; // 15
+    // sin += (cur_rad * rad) / 355687428096000; // 17
+    return sin;
+}
+
 double calcSin(double x) {
-    double sign=1;
-    if (x<0){
-        sign=-1.0;
-        x=-x;
-    }
-    if (x>360) x -= int(x/360)*360;
-    x*=PI/180.0;
+    double sign = (-2.0 * (x<0)) + 1.0;
+    x *= ( (-2 * (x<0)) + 1 );
+
+    x -= ((x>360) * (int(x/360)*360));
+    x *= PI/180.0;
 
     double result = 0;
     double term = x;
@@ -165,6 +194,22 @@ double calcSin(double x) {
     }
 
     return sign*result;
+}
+
+int fact(int n) {
+    return n <= 0 ? 1 : n * fact(n-1);
+}
+
+double sinusInternet(double rad) {
+#define TERMS 7
+
+    double sin = 0;
+
+    int i;
+    for(i = 0; i < TERMS; i++) { // That's Taylor series!!
+        sin += pow(-1, i) * pow(rad, 2 * i + 1) / fact(2 * i + 1);
+    }
+    return sin;
 }
 
 
