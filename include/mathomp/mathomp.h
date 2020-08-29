@@ -21,4 +21,7 @@ double calcSin(double x);
 
 double sinusInternet(double rad);
 
+// ############UTILITY############
+
+
 #endif

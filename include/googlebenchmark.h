@@ -1,0 +1,8 @@
+//
+// Created by hury on 19/08/2020.
+//
+
+#ifndef MATHOMP_GOOGLEBENCHMARK_H
+#define MATHOMP_GOOGLEBENCHMARK_H
+
+#endif //MATHOMP_GOOGLEBENCHMARK_H

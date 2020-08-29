@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <cstring>
 
-#include "../mathomp.h"
+#include "mathomp.h"
 //
 // Created by ryanh on 08.12.2018.
 //

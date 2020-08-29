@@ -5,9 +5,9 @@
 #include <cstdlib>
 #include <omp.h>
 #include <cstdio>
-#include "../mathomp.h"
+#include "mathomp.h"
 
-#include "../include/benchmark.h"
+#include "benchmark.h"
 
 int main(int argc, char** argv) {
 // give a number which should get checked as program parameter.

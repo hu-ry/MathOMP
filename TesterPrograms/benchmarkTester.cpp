@@ -5,14 +5,13 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cmath>
-#include <random>
 #include <zconf.h>
 
-#include "../mathomp.h"
-#include "../include/benchmark.h"
+#include "mathomp.h"
+#include "benchmark.h"
 
-void benchmarkSinus(Benchmark &marker) {
-    double* TestingData = new double[50];
+void benchmarkSinus(HuBench::Benchmark &marker) {
+    double *TestingData = new double[50];
     //double* ResultingData = new double[50];
 
     for(int i=0; i<50; i++) {
@@ -145,9 +144,10 @@ int main(int argc, char** argv) {
     }
     srand48((long)value_llu);
 
-    Benchmark marker;
-
+    // Using old own little benchmark tool
+    HuBench::Benchmark marker;
     benchmarkSinus(marker);
+
 
     return 0;
 }
